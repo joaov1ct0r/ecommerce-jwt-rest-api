@@ -26,3 +26,7 @@ let User = dbConnection.define(
         timestamps: false
     }
 );
+
+User.sync();
+
+export default User;
