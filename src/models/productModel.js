@@ -34,3 +34,7 @@ let Product = dbConnection.define(
         timestamps: false
     }
 );
+
+Product.sync();
+
+export default Product;
