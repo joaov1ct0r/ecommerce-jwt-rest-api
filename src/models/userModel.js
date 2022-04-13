@@ -11,12 +11,12 @@ let User = dbConnection.define(
             autoIncrement: true
         },
         email: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(100),
             unique: true,
             allowNull: false
         },
         password: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(250),
             allowNull: false
         }
     },
