@@ -7,7 +7,23 @@
   "scripts": {
     "start": "node src/index.js"
   },
-  "keywords": ["javascript", "nodejs", "api", "rest-api", "mongoose", "mongodb", "express", "cors", "dotenv", "jwt", "jsonwebtoken", "@hapi/joi"],
+  "keywords": [
+    "javascript",
+    "nodejs",
+    "api",
+    "rest-api",
+    "mongoose",
+    "mongodb",
+    "express",
+    "cors",
+    "dotenv",
+    "jwt",
+    "jsonwebtoken",
+    "@hapi/joi"
+  ],
   "author": "github.com/joaov1ct0r",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^13.0.0"
+  }
 }
