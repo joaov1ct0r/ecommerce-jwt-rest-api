@@ -1,1 +1,1 @@
-import sequelize from 'sequelize';
+import { DataTypes } from 'sequelize';
