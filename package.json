@@ -18,7 +18,8 @@
     "dotenv",
     "jwt",
     "jsonwebtoken",
-    "@hapi/joi"
+    "@hapi/joi",
+    "bcryptjs"
   ],
   "author": "github.com/joaov1ct0r",
   "license": "ISC",
