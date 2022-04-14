@@ -14,3 +14,5 @@ import authController from '../controllers/authController.js';
 let userRouter = express.Router();
 
 userRouter.get('/user/:id', authController, handleOneUser);
+
+userRouter.get('/users', authController, handleAllUsers);
