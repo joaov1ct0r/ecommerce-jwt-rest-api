@@ -12,6 +12,8 @@ export default function (req, res, next) {
             return res
                 .status(400)
                 .json({ error: 'Falha na autenticação de token!' });
+
+        next();
     } catch (error) {
         throw error;
     }
