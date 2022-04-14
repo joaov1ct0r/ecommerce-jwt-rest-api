@@ -46,6 +46,24 @@ let handleEditUser = async (req, res) => {
 
     if (!email || !password)
         return res.status(400).json({ error: 'Falha ao obter dados!' });
+
+    try {
+        let user = await User.update(
+            { email, password },
+            {
+                where: {
+                    id
+                }
+            }
+        );
+
+        if (!user)
+            return res
+                .status(500)
+                .json({ error: 'Falha ao atualizar usuario!' });
+    } catch (error) {
+        throw error;
+    }
 };
 
 let handleUserLogin = async (req, res) => {
