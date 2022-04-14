@@ -114,6 +114,17 @@ let handleDeleteUser = async (req, res) => {
 
     if (!id)
         return res.status(400).json({ error: 'ID de usuario não encontrado!' });
+
+    try {
+        let user = await User.destroy({
+            where: { id }
+        });
+
+        if (!user)
+            return res.status(500).json({ error: 'Falha ao deletar usuario!' });
+    } catch (error) {
+        throw error;
+    }
 };
 
 let handleAllUsers = async (req, res) => {
