@@ -37,37 +37,6 @@ let handleNewUser = async (req, res) => {
     }
 };
 
-let handleEditUser = async (req, res) => {
-    let { id } = req.params;
-
-    if (!id) return res.status(400).json({ error: 'ID não encontrado' });
-
-    let { email, password } = req.body;
-
-    if (!email || !password)
-        return res.status(400).json({ error: 'Falha ao obter dados!' });
-
-    try {
-        let user = await User.update(
-            { email, password },
-            {
-                where: {
-                    id
-                }
-            }
-        );
-
-        if (!user)
-            return res
-                .status(500)
-                .json({ error: 'Falha ao atualizar usuario!' });
-
-        res.status(200).json({ message: 'Usuario atualizado com sucesso!' });
-    } catch (error) {
-        throw error;
-    }
-};
-
 let handleUserLogin = async (req, res) => {
     let { error } = loginValidate(req.body);
 
@@ -107,6 +76,44 @@ let handleUserLogin = async (req, res) => {
     } catch (error) {
         throw error;
     }
+};
+
+let handleEditUser = async (req, res) => {
+    let { id } = req.params;
+
+    if (!id) return res.status(400).json({ error: 'ID não encontrado' });
+
+    let { email, password } = req.body;
+
+    if (!email || !password)
+        return res.status(400).json({ error: 'Falha ao obter dados!' });
+
+    try {
+        let user = await User.update(
+            { email, password },
+            {
+                where: {
+                    id
+                }
+            }
+        );
+
+        if (!user)
+            return res
+                .status(500)
+                .json({ error: 'Falha ao atualizar usuario!' });
+
+        res.status(200).json({ message: 'Usuario atualizado com sucesso!' });
+    } catch (error) {
+        throw error;
+    }
+};
+
+let handleDeleteUser = async (req, res) => {
+    let { id } = req.params;
+
+    if (!id)
+        return res.status(400).json({ error: 'ID de usuario não encontrado!' });
 };
 
 let handleAllUsers = async (req, res) => {
