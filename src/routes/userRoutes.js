@@ -16,3 +16,5 @@ let userRouter = express.Router();
 userRouter.get('/user/:id', authController, handleOneUser);
 
 userRouter.get('/users', authController, handleAllUsers);
+
+userRouter.post('/user', handleNewUser);
