@@ -58,4 +58,18 @@ let handleUserLogin = async (req, res) => {
 
     if (!comparedPassword)
         return res.status(400).json({ error: 'Falha na autenticação!' });
+
+    try {
+        let token = jwt.sign(
+            {
+                id: selectedUser.id
+            },
+            process.env.JWT_TOKEN_SECRET
+        );
+
+        if (!token)
+            return res.status(500).json({ error: 'Falha na autenticação!' });
+    } catch (error) {
+        throw error;
+    }
 };
