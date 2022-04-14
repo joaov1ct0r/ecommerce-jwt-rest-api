@@ -50,4 +50,12 @@ let handleUserLogin = async (req, res) => {
 
     if (!selectedUser)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
+
+    let comparedPassword = bcrypt.compareSync(
+        req.body.password,
+        selectedUser.password
+    );
+
+    if (!comparedPassword)
+        return res.status(400).json({ error: 'Falha na autenticação!' });
 };
