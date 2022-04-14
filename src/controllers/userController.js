@@ -77,3 +77,14 @@ let handleUserLogin = async (req, res) => {
         throw error;
     }
 };
+
+let handleAllUsers = async (req, res) => {
+    try {
+        let users = await User.findAll({});
+
+        if (!users)
+            return res.status(500).json({ error: 'Falha ao obter dados!' });
+    } catch (error) {
+        throw error;
+    }
+};
