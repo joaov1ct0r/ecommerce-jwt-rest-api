@@ -36,3 +36,9 @@ let handleNewUser = async (req, res) => {
         throw error;
     }
 };
+
+let handleUserLogin = async (req, res) => {
+    let { error } = loginValidate(req.body);
+
+    if (error) return res.status(400).json({ error });
+};
