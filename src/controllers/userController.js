@@ -141,3 +141,9 @@ let handleAllUsers = async (req, res) => {
         throw error;
     }
 };
+
+let handleOneUser = async (req, res) => {
+    let { id } = req.params;
+
+    if (!id) return res.status(400).json({ error: 'ID não encontrado!' });
+};
