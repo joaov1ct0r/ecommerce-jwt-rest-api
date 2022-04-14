@@ -41,4 +41,13 @@ let handleUserLogin = async (req, res) => {
     let { error } = loginValidate(req.body);
 
     if (error) return res.status(400).json({ error });
+
+    let selectedUser = await User.findOne({
+        where: {
+            email: req.body.email
+        }
+    });
+
+    if (!selectedUser)
+        return res.status(400).json({ error: 'Usuario não encontrado!' });
 };
