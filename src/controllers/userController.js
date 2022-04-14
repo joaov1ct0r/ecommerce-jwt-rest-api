@@ -154,6 +154,8 @@ let handleOneUser = async (req, res) => {
 
         if (!user)
             return res.status(500).json({ error: 'Falha ao obter dados!' });
+
+        res.status(200).json({ user });
     } catch (error) {
         throw error;
     }
