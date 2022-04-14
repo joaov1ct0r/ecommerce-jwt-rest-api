@@ -18,3 +18,5 @@ userRouter.get('/user/:id', authController, handleOneUser);
 userRouter.get('/users', authController, handleAllUsers);
 
 userRouter.post('/user', handleNewUser);
+
+userRouter.put('/user', authController, handleEditUser);
