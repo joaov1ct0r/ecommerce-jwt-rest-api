@@ -61,6 +61,8 @@ let handleEditUser = async (req, res) => {
             return res
                 .status(500)
                 .json({ error: 'Falha ao atualizar usuario!' });
+
+        res.status(200).json({ message: 'Usuario atualizado com sucesso!' });
     } catch (error) {
         throw error;
     }
