@@ -90,7 +90,7 @@ let handleEditUser = async (req, res) => {
 
     try {
         let user = await User.update(
-            { email, password },
+            { email, password: bcrypt.hashSync(password) },
             {
                 where: {
                     id
