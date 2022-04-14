@@ -37,6 +37,11 @@ let Product = dbConnection.define(
     }
 );
 
+Product.belongsTo(User, {
+    constraints: true,
+    foreignKey: 'userId'
+});
+
 Product.sync();
 
 export default Product;
