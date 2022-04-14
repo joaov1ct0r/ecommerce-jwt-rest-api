@@ -146,4 +146,15 @@ let handleOneUser = async (req, res) => {
     let { id } = req.params;
 
     if (!id) return res.status(400).json({ error: 'ID não encontrado!' });
+
+    try {
+        let user = await User.findOne({
+            where: { id }
+        });
+
+        if (!user)
+            return res.status(500).json({ error: 'Falha ao obter dados!' });
+    } catch (error) {
+        throw error;
+    }
 };
