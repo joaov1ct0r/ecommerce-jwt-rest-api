@@ -41,6 +41,11 @@ let handleEditUser = async (req, res) => {
     let { id } = req.params;
 
     if (!id) return res.status(400).json({ error: 'ID não encontrado' });
+
+    let { email, password } = req.body;
+
+    if (!email || !password)
+        return res.status(400).json({ error: 'Falha ao obter dados!' });
 };
 
 let handleUserLogin = async (req, res) => {
