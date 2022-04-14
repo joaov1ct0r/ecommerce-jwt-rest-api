@@ -37,6 +37,12 @@ let handleNewUser = async (req, res) => {
     }
 };
 
+let handleEditUser = async (req, res) => {
+    let { id } = req.params;
+
+    if (!id) return res.status(400).json({ error: 'ID não encontrado' });
+};
+
 let handleUserLogin = async (req, res) => {
     let { error } = loginValidate(req.body);
 
