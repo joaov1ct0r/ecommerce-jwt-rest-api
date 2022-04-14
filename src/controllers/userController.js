@@ -160,3 +160,12 @@ let handleOneUser = async (req, res) => {
         throw error;
     }
 };
+
+export {
+    handleNewUser,
+    handleUserLogin,
+    handleEditUser,
+    handleDeleteUser,
+    handleOneUser,
+    handleAllUsers
+};
