@@ -7,3 +7,5 @@ let registerValidate = data => {
     });
     return schema.validate(data);
 };
+
+export { registerValidate };
