@@ -44,19 +44,19 @@ let handleUserLogin = async (req, res) => {
 
     if (error) return res.status(400).json({ error });
 
+    let { email, password } = req.body;
+
+    if (!email || !password)
+        return res.status(400).json({ error: 'Falha na autenticação!' });
+
     let selectedUser = await User.findOne({
-        where: {
-            email: req.body.email
-        }
+        where: { email }
     });
 
     if (!selectedUser)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
 
-    let comparedPassword = bcrypt.compareSync(
-        req.body.password,
-        selectedUser.password
-    );
+    let comparedPassword = bcrypt.compareSync(password, selectedUser.password);
 
     if (!comparedPassword)
         return res.status(400).json({ error: 'Falha na autenticação!' });
@@ -94,9 +94,7 @@ let handleEditUser = async (req, res) => {
         let user = await User.update(
             { email, password: bcrypt.hashSync(password) },
             {
-                where: {
-                    id
-                }
+                where: { id }
             }
         );
 
