@@ -43,11 +43,9 @@ let handleNewProduct = async (req, res) => {
 };
 
 let handleEditProduct = async (req, res) => {
-    let { id } = req.params;
+    let { id, productId } = req.params;
 
     if (!id) return res.status(400).json({ error: 'ID não encontrado!' });
-
-    let { productId } = req.params;
 
     if (!productId)
         return res.status(400).json({ error: 'ID do produto não encontrado!' });
@@ -66,6 +64,15 @@ let handleEditProduct = async (req, res) => {
     let { title, description, amount, price } = req.body;
 
     try {
+        let editedProduct = await Product.update(
+            { title, description, amount, price },
+            {
+                where: { id: productId }
+            }
+        );
+
+        if (!editedProduct)
+            return res.status(500).json({ error: 'Falha ao editar produto!' });
     } catch (error) {
         throw error;
     }
