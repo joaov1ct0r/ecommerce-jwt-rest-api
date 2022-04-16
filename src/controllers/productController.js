@@ -27,7 +27,8 @@ let handleNewProduct = async (req, res) => {
             title,
             description,
             amount,
-            price
+            price,
+            userId: registeredUser.id
         });
 
         if (!newProduct)
