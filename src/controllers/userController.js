@@ -138,7 +138,7 @@ let handleAllUsers = async (req, res) => {
         if (!users)
             return res.status(500).json({ error: 'Falha ao obter dados!' });
 
-        res.status(200).json(users);
+        res.status(200).json({ users });
     } catch (error) {
         throw error;
     }
