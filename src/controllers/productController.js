@@ -65,7 +65,7 @@ let handleEditProduct = async (req, res) => {
 
     try {
         let editedProduct = await Product.update(
-            { title, description, amount, price },
+            { title, description, amount, price, userId: registeredUser.id },
             {
                 where: { id: productId }
             }
