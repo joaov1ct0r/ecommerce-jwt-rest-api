@@ -45,5 +45,9 @@ let handleNewProduct = async (req, res) => {
 let handleEditProduct = async (req, res) => {
     let { id } = req.params;
 
-    if (!id) return res.status(500).json({ error: 'ID não encontrado!' });
+    if (!id) return res.status(400).json({ error: 'ID não encontrado!' });
+
+    let { error } = validateProductData(req.body);
+
+    if (error) return res.status(400).json({ error });
 };
