@@ -50,4 +50,11 @@ let handleEditProduct = async (req, res) => {
     let { error } = validateProductData(req.body);
 
     if (error) return res.status(400).json({ error });
+
+    let registerdUser = await User.findOne({
+        where: { id }
+    });
+
+    if (!registerdUser)
+        return res.status(400).json({ error: 'Usuario não encontrado!' });
 };
