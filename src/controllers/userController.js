@@ -138,11 +138,6 @@ let handleAllUsers = async (req, res) => {
         if (!users)
             return res.status(500).json({ error: 'Falha ao obter dados!' });
 
-        let product = await Product.findAll({});
-
-        if (!product)
-            return res.status(500).json({ error: 'Falha ao obter dados!' });
-
         res.status(200).json(users);
     } catch (error) {
         throw error;
@@ -162,7 +157,19 @@ let handleOneUser = async (req, res) => {
         if (!user)
             return res.status(500).json({ error: 'Falha ao obter dados!' });
 
-        res.status(200).json({ user });
+        let product = await Product.findAll({
+            where: { id }
+        });
+
+        if (!product)
+            return res.status(500).json({ error: 'Falha ao obter dados!' });
+
+        res.status(200).json({
+            id: user.id,
+            email: user.email,
+            password: user.password,
+            products: [product]
+        });
     } catch (error) {
         throw error;
     }
