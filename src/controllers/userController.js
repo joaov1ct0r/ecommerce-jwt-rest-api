@@ -6,14 +6,10 @@ import jwt from 'jsonwebtoken';
 
 import bcrypt from 'bcryptjs';
 
-import {
-    registerValidate,
-    loginValidate,
-    editValidate
-} from './validateUserData.js';
+import { validateUserData } from './validateUserData.js';
 
 let handleNewUser = async (req, res) => {
-    let { error } = registerValidate(req.body);
+    let { error } = validateUserData(req.body);
 
     if (error) return res.status(400).json({ error });
 
@@ -47,7 +43,7 @@ let handleNewUser = async (req, res) => {
 };
 
 let handleUserLogin = async (req, res) => {
-    let { error } = loginValidate(req.body);
+    let { error } = validateUserData(req.body);
 
     if (error) return res.status(400).json({ error });
 
@@ -88,7 +84,7 @@ let handleUserLogin = async (req, res) => {
 };
 
 let handleEditUser = async (req, res) => {
-    let { error } = editValidate(req.body);
+    let { error } = validateUserData(req.body);
 
     if (error) return res.status(400).json({ error });
 
