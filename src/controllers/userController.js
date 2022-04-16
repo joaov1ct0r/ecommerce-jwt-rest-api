@@ -13,6 +13,11 @@ let handleNewUser = async (req, res) => {
 
     if (error) return res.status(400).json({ error });
 
+    let { email, password } = req.body;
+
+    if (!email || !password)
+        return res.status(400).json({ error: 'Falha na autenticação!' });
+
     let registeredUser = await User.findOne({
         where: {
             email: req.body.email
