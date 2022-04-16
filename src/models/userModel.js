@@ -1,7 +1,5 @@
 import dbConnection from '../config/database.js';
 
-import Product from './productModel.js';
-
 import { DataTypes } from 'sequelize';
 
 let User = dbConnection.define(
