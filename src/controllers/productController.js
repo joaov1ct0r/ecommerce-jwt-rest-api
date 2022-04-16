@@ -80,4 +80,4 @@ let handleEditProduct = async (req, res) => {
     }
 };
 
-export { handleNewProduct };
+export { handleNewProduct, handleEditProduct };
