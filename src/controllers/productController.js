@@ -13,10 +13,24 @@ let handleNewProduct = async (req, res) => {
 
     if (error) return res.status(400).json({ error });
 
-    let user = await User.findOne({
+    let registeredUser = await User.findOne({
         where: { id }
     });
 
-    if (!user)
+    if (!registeredUser)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
+
+    let { title, description, amount, price } = req.body;
+
+    let newProduct = await Product.create({
+        title,
+        description,
+        amount,
+        price
+    });
+
+    if (!newProduct)
+        return res
+            .status(500)
+            .json({ error: 'Falha ao registrar novo produto!' });
 };
