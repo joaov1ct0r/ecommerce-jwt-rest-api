@@ -158,7 +158,7 @@ let handleOneUser = async (req, res) => {
             return res.status(500).json({ error: 'Falha ao obter dados!' });
 
         let product = await Product.findAll({
-            where: { id }
+            where: { userId: id }
         });
 
         if (!product)
