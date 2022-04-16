@@ -42,6 +42,10 @@ Product.belongsTo(User, {
     foreignKey: 'userId'
 });
 
+User.hasMany(Product, {
+    foreignKey: 'userId'
+});
+
 Product.sync();
 
 export default Product;
