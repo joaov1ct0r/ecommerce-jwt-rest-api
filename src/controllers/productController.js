@@ -51,10 +51,10 @@ let handleEditProduct = async (req, res) => {
 
     if (error) return res.status(400).json({ error });
 
-    let registerdUser = await User.findOne({
+    let registeredUser = await User.findOne({
         where: { id }
     });
 
-    if (!registerdUser)
+    if (!registeredUser)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
 };
