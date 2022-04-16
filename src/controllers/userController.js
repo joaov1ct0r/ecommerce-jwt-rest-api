@@ -6,7 +6,11 @@ import jwt from 'jsonwebtoken';
 
 import bcrypt from 'bcryptjs';
 
-import { registerValidate, loginValidate } from './validateData.js';
+import {
+    registerValidate,
+    loginValidate,
+    editValidate
+} from './validateData.js';
 
 let handleNewUser = async (req, res) => {
     let { error } = registerValidate(req.body);
