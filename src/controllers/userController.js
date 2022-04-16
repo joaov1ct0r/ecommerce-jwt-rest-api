@@ -150,26 +150,12 @@ let handleOneUser = async (req, res) => {
     if (!id) return res.status(400).json({ error: 'ID não encontrado!' });
 
     try {
-        let user = await User.findOne({
-            where: { id }
-        });
+        let user = await User.findByPk(id, { include: Product });
 
         if (!user)
             return res.status(500).json({ error: 'Falha ao obter dados!' });
 
-        let product = await Product.findAll({
-            where: { userId: id }
-        });
-
-        if (!product)
-            return res.status(500).json({ error: 'Falha ao obter dados!' });
-
-        res.status(200).json({
-            id: user.id,
-            email: user.email,
-            password: user.password,
-            products: [product]
-        });
+        res.status(200).json({ user });
     } catch (error) {
         throw error;
     }
