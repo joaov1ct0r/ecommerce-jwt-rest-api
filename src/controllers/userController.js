@@ -115,11 +115,11 @@ let handleDeleteUser = async (req, res) => {
         return res.status(400).json({ error: 'ID de usuario não encontrado!' });
 
     try {
-        let user = await User.destroy({
+        let deletedUser = await User.destroy({
             where: { id }
         });
 
-        if (!user)
+        if (!deletedUser)
             return res.status(500).json({ error: 'Falha ao deletar usuario!' });
 
         res.status(200).json({ message: 'Usuario deletado com sucesso!' });
