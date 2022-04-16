@@ -41,3 +41,9 @@ let handleNewProduct = async (req, res) => {
         throw error;
     }
 };
+
+let handleEditProduct = async (req, res) => {
+    let { id } = req.params;
+
+    if (!id) return res.status(500).json({ error: 'ID não encontrado!' });
+};
