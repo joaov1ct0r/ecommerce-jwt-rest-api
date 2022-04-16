@@ -19,17 +19,15 @@ let handleNewUser = async (req, res) => {
         return res.status(400).json({ error: 'Falha na autenticação!' });
 
     let registeredUser = await User.findOne({
-        where: {
-            email: req.body.email
-        }
+        where: { email }
     });
 
     if (registeredUser)
         return res.status(400).json({ error: 'Usuario já registrado!' });
 
     let user = User.build({
-        email: req.body.email,
-        password: bcrypt.hashSync(req.body.password)
+        email,
+        password: bcrypt.hashSync(password)
     });
 
     try {
