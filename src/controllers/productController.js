@@ -47,6 +47,11 @@ let handleEditProduct = async (req, res) => {
 
     if (!id) return res.status(400).json({ error: 'ID não encontrado!' });
 
+    let { productId } = req.params;
+
+    if (!productId)
+        return res.status(400).json({ error: 'ID do produto não encontrado!' });
+
     let { error } = validateProductData(req.body);
 
     if (error) return res.status(400).json({ error });
@@ -57,4 +62,11 @@ let handleEditProduct = async (req, res) => {
 
     if (!registeredUser)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
+
+    let { title, description, amount, price } = req.body;
+
+    try {
+    } catch (error) {
+        throw error;
+    }
 };
