@@ -79,3 +79,5 @@ let handleEditProduct = async (req, res) => {
         throw error;
     }
 };
+
+export { handleNewProduct };
