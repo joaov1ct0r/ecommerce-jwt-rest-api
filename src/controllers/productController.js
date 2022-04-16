@@ -22,15 +22,19 @@ let handleNewProduct = async (req, res) => {
 
     let { title, description, amount, price } = req.body;
 
-    let newProduct = await Product.create({
-        title,
-        description,
-        amount,
-        price
-    });
+    try {
+        let newProduct = await Product.create({
+            title,
+            description,
+            amount,
+            price
+        });
 
-    if (!newProduct)
-        return res
-            .status(500)
-            .json({ error: 'Falha ao registrar novo produto!' });
+        if (!newProduct)
+            return res
+                .status(500)
+                .json({ error: 'Falha ao registrar novo produto!' });
+    } catch (error) {
+        throw error;
+    }
 };
