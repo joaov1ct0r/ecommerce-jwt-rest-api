@@ -34,6 +34,8 @@ let handleNewProduct = async (req, res) => {
             return res
                 .status(500)
                 .json({ error: 'Falha ao registrar novo produto!' });
+
+        res.status(200).json({ newProduct });
     } catch (error) {
         throw error;
     }
