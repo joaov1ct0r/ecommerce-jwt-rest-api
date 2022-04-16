@@ -90,14 +90,14 @@ let handleEditUser = async (req, res) => {
     let { email, password } = req.body;
 
     try {
-        let user = await User.update(
+        let editedUser = await User.update(
             { email, password: bcrypt.hashSync(password) },
             {
                 where: { id }
             }
         );
 
-        if (!user)
+        if (!editedUser)
             return res
                 .status(500)
                 .json({ error: 'Falha ao atualizar usuario!' });
