@@ -10,7 +10,7 @@ import {
     registerValidate,
     loginValidate,
     editValidate
-} from './validateData.js';
+} from './validateUserData.js';
 
 let handleNewUser = async (req, res) => {
     let { error } = registerValidate(req.body);
