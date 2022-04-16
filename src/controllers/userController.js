@@ -47,11 +47,11 @@ let handleUserLogin = async (req, res) => {
 
     let { email, password } = req.body;
 
-    let selectedUser = await User.findOne({
+    let registeredUser = await User.findOne({
         where: { email }
     });
 
-    if (!selectedUser)
+    if (!registeredUser)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
 
     let comparedPassword = bcrypt.compareSync(password, selectedUser.password);
