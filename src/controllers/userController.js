@@ -25,18 +25,19 @@ let handleNewUser = async (req, res) => {
     if (registeredUser)
         return res.status(400).json({ error: 'Usuario já registrado!' });
 
-    let user = User.build({
-        email,
-        password: bcrypt.hashSync(password)
-    });
-
     try {
-        let savedUser = await user.save();
+        let newUser = User.create({
+            email,
+            password: bcrypt.hashSync(password)
+        });
 
-        if (!savedUser)
-            return res.status(500).json({ error: 'Erro ao salvar usuario!' });
+        if (!newUser)
+            return res.status(500).json({ error: 'Falha ao salvar usuario!' });
 
-        res.status(200).json({ message: 'Usuario cadastrado com sucesso!' });
+        res.status(200).json({
+            message: 'Usuario cadastrado com sucesso!',
+            newUser
+        });
     } catch (error) {
         throw error;
     }
