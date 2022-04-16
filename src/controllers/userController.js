@@ -89,9 +89,6 @@ let handleEditUser = async (req, res) => {
 
     let { email, password } = req.body;
 
-    if (!email || !password)
-        return res.status(400).json({ error: 'Falha ao obter dados!' });
-
     try {
         let user = await User.update(
             { email, password: bcrypt.hashSync(password) },
