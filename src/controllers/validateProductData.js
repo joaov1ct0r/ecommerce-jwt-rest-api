@@ -9,3 +9,5 @@ let validateProductData = data => {
     });
     return schema.validate(data);
 };
+
+export default validateProductData;
