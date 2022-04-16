@@ -24,4 +24,4 @@ let editValidate = data => {
     return schema.validate(data);
 };
 
-export { registerValidate, loginValidate };
+export { registerValidate, loginValidate, editValidate };
