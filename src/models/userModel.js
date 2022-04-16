@@ -8,6 +8,7 @@ let User = dbConnection.define(
     'users',
     {
         id: {
+            unique: true,
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
