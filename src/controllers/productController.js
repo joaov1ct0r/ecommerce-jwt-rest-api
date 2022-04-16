@@ -73,6 +73,8 @@ let handleEditProduct = async (req, res) => {
 
         if (!editedProduct)
             return res.status(500).json({ error: 'Falha ao editar produto!' });
+
+        res.status(200).json({ editedProduct });
     } catch (error) {
         throw error;
     }
