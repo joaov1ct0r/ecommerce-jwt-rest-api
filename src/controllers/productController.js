@@ -109,4 +109,10 @@ let handleDeleteProduct = async (req, res) => {
     }
 };
 
+let handleGetProduct = async (req, res) => {
+    let { id, productId } = req.params;
+
+    if (!id) return res.status(400).json({ error: 'ID não encontrado!' });
+};
+
 export { handleNewProduct, handleEditProduct, handleDeleteProduct };
