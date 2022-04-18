@@ -15,3 +15,9 @@ let productRouter = express.Router();
 productRouter.post('/register', authController, handleNewProduct);
 
 productRouter.put('/edit/:id/:productId', authController, handleEditProduct);
+
+productRouter.delete(
+    '/delete/:id/:productId',
+    authController,
+    handleDeleteProduct
+);
