@@ -21,3 +21,5 @@ productRouter.delete(
     authController,
     handleDeleteProduct
 );
+
+productRouter.get('/all', authController, handleGetAllProducts);
