@@ -13,14 +13,14 @@ import authController from '../controllers/authController.js';
 
 let userRouter = express.Router();
 
-userRouter.post('/user', handleNewUser);
+userRouter.post('/register', handleNewUser);
 
-userRouter.post('/user/login', handleUserLogin);
+userRouter.post('/login', handleUserLogin);
 
-userRouter.put('/user', authController, handleEditUser);
+userRouter.put('/edit/:id', authController, handleEditUser);
 
-userRouter.delete('/user/:id', authController, handleDeleteUser);
+userRouter.delete('/delete/:id', authController, handleDeleteUser);
+
+userRouter.get('/all', authController, handleAllUsers);
 
 userRouter.get('/user/:id', authController, handleOneUser);
-
-userRouter.get('/users', authController, handleAllUsers);
