@@ -116,6 +116,13 @@ let handleGetProduct = async (req, res) => {
 
     if (!productId)
         return res.status(400).json({ error: 'ID de produto não encontrado!' });
+
+    let registerdUser = await User.findOne({
+        where: { id }
+    });
+
+    if (!registerdUser)
+        return res.status(400).json({ error: 'Usuario não encontrado!' });
 };
 
 export { handleNewProduct, handleEditProduct, handleDeleteProduct };
