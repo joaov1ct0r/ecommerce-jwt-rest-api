@@ -80,4 +80,10 @@ let handleEditProduct = async (req, res) => {
     }
 };
 
+let handleDeleteProduct = async (req, res) => {
+    let { id } = req.params;
+
+    if (!id) return res.status(400).json({ error: 'ID não encontrado!' });
+};
+
 export { handleNewProduct, handleEditProduct };
