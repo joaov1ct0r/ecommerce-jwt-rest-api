@@ -29,3 +29,5 @@ productRouter.get(
     authController,
     handleGetOneProduct
 );
+
+export default productRouter;
