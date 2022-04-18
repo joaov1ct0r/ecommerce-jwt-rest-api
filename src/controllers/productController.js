@@ -102,6 +102,8 @@ let handleDeleteProduct = async (req, res) => {
 
         if (!deletedProduct)
             return res.status(500).json({ error: 'Falha ao deletar produto!' });
+
+        res.status(200).json({ message: 'Produto deletado com sucesso!' });
     } catch (error) {
         throw error;
     }
