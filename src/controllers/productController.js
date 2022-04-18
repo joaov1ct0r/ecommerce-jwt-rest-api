@@ -109,6 +109,19 @@ let handleDeleteProduct = async (req, res) => {
     }
 };
 
+let handleGetAllProducts = async (req, res) => {
+    try {
+        let products = await Product.findAll({ include: User });
+
+        if (!products)
+            return res.status(500).json({ error: 'Falha ao obter dados!' });
+
+        res.status(200).json({ products });
+    } catch (error) {
+        throw error;
+    }
+};
+
 let handleGetOneProduct = async (req, res) => {
     let { id, productId } = req.params;
 
@@ -138,22 +151,10 @@ let handleGetOneProduct = async (req, res) => {
     }
 };
 
-let handleGetAllProducts = async (req, res) => {
-    try {
-        let products = await Product.findAll({ include: User });
-
-        if (!products)
-            return res.status(500).json({ error: 'Falha ao obter dados!' });
-
-        res.status(200).json({ products });
-    } catch (error) {
-        throw error;
-    }
-};
-
 export {
     handleNewProduct,
     handleEditProduct,
     handleDeleteProduct,
-    handleGetOneProduct
+    handleGetOneProduct,
+    handleGetAllProducts
 };
