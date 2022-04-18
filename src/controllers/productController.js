@@ -138,6 +138,17 @@ let handleGetOneProduct = async (req, res) => {
     }
 };
 
+let handleGetAllProducts = async (req, res) => {
+    try {
+        let products = await Product.findAll({ include: User });
+
+        if (!products)
+            return res.status(500).json({ error: 'Falha ao obter dados!' });
+    } catch (error) {
+        throw error;
+    }
+};
+
 export {
     handleNewProduct,
     handleEditProduct,
