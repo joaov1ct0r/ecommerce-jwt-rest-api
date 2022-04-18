@@ -109,4 +109,4 @@ let handleDeleteProduct = async (req, res) => {
     }
 };
 
-export { handleNewProduct, handleEditProduct };
+export { handleNewProduct, handleEditProduct, handleDeleteProduct };
