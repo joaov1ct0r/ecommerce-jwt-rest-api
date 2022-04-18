@@ -109,7 +109,7 @@ let handleDeleteProduct = async (req, res) => {
     }
 };
 
-let handleGetProduct = async (req, res) => {
+let handleGetOneProduct = async (req, res) => {
     let { id, productId } = req.params;
 
     if (!id) return res.status(400).json({ error: 'ID não encontrado!' });
@@ -125,9 +125,7 @@ let handleGetProduct = async (req, res) => {
         return res.status(400).json({ error: 'Usuario não encontrado!' });
 
     try {
-        let product = await Product.findOne({
-            where: { id: productId }
-        });
+        let product = await Product.findByPk(productId, { include: User });
 
         if (!product)
             return res
