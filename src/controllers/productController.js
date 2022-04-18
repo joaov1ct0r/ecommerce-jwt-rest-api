@@ -133,6 +133,8 @@ let handleGetProduct = async (req, res) => {
             return res
                 .status(500)
                 .json({ error: 'Falha ao obter dados do produto!' });
+
+        res.status(200).json({ product });
     } catch (error) {
         throw error;
     }
