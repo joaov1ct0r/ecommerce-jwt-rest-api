@@ -7,3 +7,5 @@ import {
     handleGetOneProduct,
     handleGetAllProducts
 } from '../controllers/productController.js';
+
+import authController from '../controllers/authController';
