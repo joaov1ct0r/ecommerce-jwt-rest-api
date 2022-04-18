@@ -138,4 +138,9 @@ let handleGetOneProduct = async (req, res) => {
     }
 };
 
-export { handleNewProduct, handleEditProduct, handleDeleteProduct };
+export {
+    handleNewProduct,
+    handleEditProduct,
+    handleDeleteProduct,
+    handleGetOneProduct
+};
