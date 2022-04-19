@@ -5,3 +5,5 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
 import dbConnection from './config/database.js';
+
+import productRouter from './routes/productRoutes.js';
