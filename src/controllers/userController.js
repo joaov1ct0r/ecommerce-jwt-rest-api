@@ -90,7 +90,7 @@ let handleEditUser = async (req, res) => {
     let { email, password } = req.body;
 
     let registeredUser = await User.findOne({
-        where: { email }
+        where: { id }
     });
 
     if (!registeredUser)
