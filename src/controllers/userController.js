@@ -159,6 +159,13 @@ let handleOneUser = async (req, res) => {
 
     if (!id) return res.status(400).json({ error: 'ID não encontrado!' });
 
+    let registeredUser = await User.findOne({
+        where: { id }
+    });
+
+    if (!registeredUser)
+        return res.status(400).json({ error: 'Usuario não encontrado!' });
+
     try {
         let user = await User.findByPk(id, { include: Product });
 
