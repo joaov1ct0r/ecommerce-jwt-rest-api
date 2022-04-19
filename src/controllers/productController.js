@@ -83,6 +83,13 @@ let handleDeleteProduct = async (req, res) => {
     if (!registeredUser)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
 
+    let registeredProduct = await Product.findOne({
+        where: { id: productId }
+    });
+
+    if (!registeredProduct)
+        return res.status(400).json({ error: 'Produto não encontrado!' });
+
     try {
         let deletedProduct = await Product.destroy({
             where: { id: productId }
