@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 
 import bcrypt from 'bcryptjs';
 
-import { validateUserData } from './validateUserData.js';
+import validateUserData from './validateUserData.js';
 
 let handleNewUser = async (req, res) => {
     let { error } = validateUserData(req.body);
