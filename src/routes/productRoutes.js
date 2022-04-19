@@ -8,7 +8,7 @@ import {
     handleGetAllProducts
 } from '../controllers/productController.js';
 
-import authController from '../controllers/authController';
+import authController from '../controllers/authController.js';
 
 let productRouter = express.Router();
 
