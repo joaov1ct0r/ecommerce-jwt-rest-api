@@ -7,8 +7,6 @@ import validateProductData from './validateProductData.js';
 let handleNewProduct = async (req, res) => {
     let { id } = req.params;
 
-    if (!id) return res.status(400).json({ error: 'ID não encontrado!' });
-
     let { error } = validateProductData(req.body);
 
     if (error) return res.status(400).json({ error });
@@ -44,11 +42,6 @@ let handleNewProduct = async (req, res) => {
 
 let handleEditProduct = async (req, res) => {
     let { id, productId } = req.params;
-
-    if (!id) return res.status(400).json({ error: 'ID não encontrado!' });
-
-    if (!productId)
-        return res.status(400).json({ error: 'ID do produto não encontrado!' });
 
     let { error } = validateProductData(req.body);
 
