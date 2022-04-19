@@ -7,3 +7,5 @@ import cookieParser from 'cookie-parser';
 import dbConnection from './config/database.js';
 
 import productRouter from './routes/productRoutes.js';
+
+import userRouter from './routes/userRoutes.js';
