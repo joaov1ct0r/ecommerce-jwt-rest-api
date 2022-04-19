@@ -85,8 +85,6 @@ let handleEditUser = async (req, res) => {
 
     let { id } = req.params;
 
-    if (!id) return res.status(400).json({ error: 'ID não encontrado' });
-
     let { email, password } = req.body;
 
     let registeredUser = await User.findOne({
@@ -118,9 +116,6 @@ let handleEditUser = async (req, res) => {
 let handleDeleteUser = async (req, res) => {
     let { id } = req.params;
 
-    if (!id)
-        return res.status(400).json({ error: 'ID de usuario não encontrado!' });
-
     let registedUser = await User.findOne({
         where: { id }
     });
@@ -139,9 +134,6 @@ let handleDeleteUser = async (req, res) => {
         let deletedProducts = await Product.destroy({
             where: { userId: id }
         });
-
-        if (!deletedProducts)
-            return res.status(500).json({ error: 'Falha ao deletar usuario!' });
 
         res.status(200).json({ message: 'Usuario deletado com sucesso!' });
     } catch (error) {
