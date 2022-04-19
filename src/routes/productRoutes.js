@@ -12,7 +12,7 @@ import authController from '../controllers/authController.js';
 
 let productRouter = express.Router();
 
-productRouter.post('/register', authController, handleNewProduct);
+productRouter.post('/register/:id', authController, handleNewProduct);
 
 productRouter.put('/edit/:id/:productId', authController, handleEditProduct);
 
