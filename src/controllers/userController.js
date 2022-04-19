@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 import validateUserData from './validateUserData.js';
+import { underscoredIf } from 'sequelize/types/utils';
 
 let handleNewUser = async (req, res) => {
     let { error } = validateUserData(req.body);
@@ -31,10 +32,7 @@ let handleNewUser = async (req, res) => {
         if (!newUser)
             return res.status(500).json({ error: 'Falha ao salvar usuario!' });
 
-        res.status(200).json({
-            message: 'Usuario cadastrado com sucesso!',
-            newUser
-        });
+        res.status(200).json({ message: 'Usuario cadastrado com sucesso!' });
     } catch (error) {
         throw error;
     }
@@ -54,7 +52,10 @@ let handleUserLogin = async (req, res) => {
     if (!registeredUser)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
 
-    let comparedPassword = bcrypt.compareSync(password, selectedUser.password);
+    let comparedPassword = bcrypt.compareSync(
+        password,
+        registeredUser.password
+    );
 
     if (!comparedPassword)
         return res.status(400).json({ error: 'Falha na autenticação!' });
@@ -62,7 +63,7 @@ let handleUserLogin = async (req, res) => {
     try {
         let token = jwt.sign(
             {
-                id: selectedUser.id
+                id: registeredUser.id
             },
             process.env.JWT_TOKEN_SECRET
         );
@@ -88,6 +89,13 @@ let handleEditUser = async (req, res) => {
     if (!id) return res.status(400).json({ error: 'ID não encontrado' });
 
     let { email, password } = req.body;
+
+    let registeredUser = await User.findOne({
+        where: { email }
+    });
+
+    if (!registeredUser)
+        return res.status(400).json({ error: 'Usuario não encontrado!' });
 
     try {
         let editedUser = await User.update(
