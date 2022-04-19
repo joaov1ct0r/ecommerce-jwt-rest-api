@@ -27,3 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/users', userRouter);
 
 app.use('/api/products', productRouter);
+
+app.listen(process.env.SERVER_PORT, () => {
+    console.log('Server running!');
+});
