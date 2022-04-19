@@ -120,17 +120,19 @@ let handleGetAllProducts = async (req, res) => {
 let handleGetOneProduct = async (req, res) => {
     let { id, productId } = req.params;
 
-    if (!id) return res.status(400).json({ error: 'ID não encontrado!' });
-
-    if (!productId)
-        return res.status(400).json({ error: 'ID de produto não encontrado!' });
-
     let registeredUser = await User.findOne({
         where: { id }
     });
 
     if (!registeredUser)
         return res.status(400).json({ error: 'Usuario não encontrado!' });
+
+    let registeredProduct = await Product.findOne({
+        where: { id: productId }
+    });
+
+    if (!registeredProduct)
+        return res.status(400).json({ error: 'Produto não encontrado!' });
 
     try {
         let product = await Product.findByPk(productId, { include: User });
