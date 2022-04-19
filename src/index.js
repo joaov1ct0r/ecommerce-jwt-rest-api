@@ -14,6 +14,8 @@ import userRouter from './routes/userRoutes.js';
 
 let app = express();
 
+dbConnection();
+
 app.use(cors());
 
 app.use(cookieParser());
