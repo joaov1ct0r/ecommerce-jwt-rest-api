@@ -7,7 +7,6 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 import validateUserData from './validateUserData.js';
-import { underscoredIf } from 'sequelize/types/utils';
 
 let handleNewUser = async (req, res) => {
     let { error } = validateUserData(req.body);
