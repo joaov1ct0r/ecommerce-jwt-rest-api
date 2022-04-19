@@ -13,3 +13,5 @@ import productRouter from './routes/productRoutes.js';
 import userRouter from './routes/userRoutes.js';
 
 let app = express();
+
+app.use(cookieParser());
