@@ -25,7 +25,7 @@ productRouter.delete(
 productRouter.get('/all', authController, handleGetAllProducts);
 
 productRouter.get(
-    '/product/:id/productId:',
+    '/product/:id/:productId',
     authController,
     handleGetOneProduct
 );
