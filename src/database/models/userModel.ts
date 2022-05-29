@@ -2,8 +2,8 @@ import dbConnection from "../config/database";
 
 import { DataTypes, ModelStatic } from "sequelize";
 
-let User = dbConnection.define(
-  'users',
+const User: ModelStatic<IUser> = dbConnection.define(
+  "users",
   {
     id: {
       unique: true,
@@ -23,7 +23,7 @@ let User = dbConnection.define(
   },
   {
     freezeTableName: true,
-    tableName: 'users',
+    tableName: "users",
     timestamps: false
   }
 );
