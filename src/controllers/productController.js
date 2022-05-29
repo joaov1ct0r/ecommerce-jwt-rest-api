@@ -2,7 +2,7 @@ import User from '../database/models/userModel.js';
 
 import Product from '../database/models/productModel.js';
 
-import validateProductData from './validateProductData.js';
+import validateProductData from '../validators/validateProductData.js';
 
 let handleNewProduct = async (req, res) => {
     let { id } = req.params;
