@@ -1,6 +1,6 @@
 import DB from "../config/database";
 
-import { DataTypes } from 'sequelize';
+import { DataTypes, ModelStatic, Model } from "sequelize";
 
 import User from './userModel.js';
 
