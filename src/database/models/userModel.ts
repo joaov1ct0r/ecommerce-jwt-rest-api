@@ -1,10 +1,10 @@
-import dbConnection from "../config/database";
+import DB from "../config/database";
 
 import { DataTypes, ModelStatic } from "sequelize";
 
 import IUser from "../../types/userInterface";
 
-const User: ModelStatic<IUser> = dbConnection.define(
+const User: ModelStatic<IUser> = DB.define(
   "users",
   {
     id: {
