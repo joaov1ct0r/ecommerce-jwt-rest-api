@@ -29,4 +29,12 @@ const validateHandleDeleteProduct = (data: Object): Joi.ValidationResult => {
   return schema.validate(data);
 };
 
-export { validateHandleNewProduct, validateHandleEditProduct, validateHandleDeleteProduct };
+const validateHandleGetOneProduct = (data: Object): Joi.ValidationResult => {
+  const schema: Joi.ObjectSchema<Object> = Joi.object({
+    productId: Joi.string().required().min(1)
+  });
+
+  return schema.validate(data);
+};
+
+export { validateHandleNewProduct, validateHandleEditProduct, validateHandleDeleteProduct, validateHandleGetOneProduct };
