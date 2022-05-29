@@ -4,8 +4,8 @@ import { DataTypes, ModelStatic, Model } from "sequelize";
 
 import User from "../models/userModel";
 
-let Product = dbConnection.define(
-  'products',
+const Product: ModelStatic<Model> = DB.define(
+  "products",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -32,18 +32,18 @@ let Product = dbConnection.define(
   },
   {
     freezeTableName: true,
-    tableName: 'products',
+    tableName: "products",
     timestamps: false
   }
 );
 
 Product.belongsTo(User, {
   constraints: true,
-  foreignKey: 'userId'
+  foreignKey: "userId"
 });
 
 User.hasMany(Product, {
-  foreignKey: 'userId'
+  foreignKey: "userId"
 });
 
 Product.sync();
