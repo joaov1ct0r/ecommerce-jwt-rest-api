@@ -1,7 +1,7 @@
 import Joi from "@hapi/joi";
 
-let validateProductData = data => {
-  let schema = Joi.object({
+const validateHandleNewProduct = (data: Object): Joi.ValidationResult => {
+  const schema: Joi.ObjectSchema<Object> = Joi.object({
     title: Joi.string().required().min(3).max(150),
     description: Joi.string().required().min(5).max(150),
     amount: Joi.number().required().min(1),
@@ -10,4 +10,4 @@ let validateProductData = data => {
   return schema.validate(data);
 };
 
-export default validateProductData;
+export { validateHandleNewProduct };
