@@ -2,6 +2,8 @@ import dbConnection from "../config/database";
 
 import { DataTypes, ModelStatic } from "sequelize";
 
+import IUser from "../../types/userInterface";
+
 const User: ModelStatic<IUser> = dbConnection.define(
   "users",
   {
