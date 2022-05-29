@@ -2,7 +2,7 @@ import DB from "../config/database";
 
 import { DataTypes, ModelStatic, Model } from "sequelize";
 
-import User from './userModel.js';
+import User from "../models/userModel";
 
 let Product = dbConnection.define(
   'products',
