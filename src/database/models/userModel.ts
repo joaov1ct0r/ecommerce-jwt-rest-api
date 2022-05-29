@@ -1,31 +1,31 @@
-import dbConnection from '../config/database.js';
+import dbConnection from "../config/database";
 
-import { DataTypes } from 'sequelize';
+import { DataTypes, ModelStatic } from "sequelize";
 
 let User = dbConnection.define(
-    'users',
-    {
-        id: {
-            unique: true,
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        email: {
-            type: DataTypes.STRING(100),
-            unique: true,
-            allowNull: false
-        },
-        password: {
-            type: DataTypes.STRING(250),
-            allowNull: false
-        }
+  'users',
+  {
+    id: {
+      unique: true,
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
     },
-    {
-        freezeTableName: true,
-        tableName: 'users',
-        timestamps: false
+    email: {
+      type: DataTypes.STRING(100),
+      unique: true,
+      allowNull: false
+    },
+    password: {
+      type: DataTypes.STRING(250),
+      allowNull: false
     }
+  },
+  {
+    freezeTableName: true,
+    tableName: 'users',
+    timestamps: false
+  }
 );
 
 User.sync();
