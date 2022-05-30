@@ -89,7 +89,7 @@ const handleUserLogin = async (req: Request, res: Response): Promise<Response<an
   };
 };
 
-const handleEditUser = async (req: IReq, res: Response) => {
+const handleEditUser = async (req: IReq, res: Response): Promise<Response<any, Record<string, any>> | undefined> => {
   const { error } = validateHandleEditUser(req.body);
 
   if (error) return res.status(400).json({ error });
@@ -119,32 +119,27 @@ const handleEditUser = async (req: IReq, res: Response) => {
   };
 };
 
-let handleDeleteUser = async (req, res) => {
-  let { id } = req.params;
-
-  let registedUser = await User.findOne({
-    where: { id }
-  });
-
-  if (!registedUser)
-    return res.status(400).json({ error: 'Usuario não encontrado!' });
+const handleDeleteUser = async (req: IReq, res: Response): Promise<Response<any, Record<string, any>>> => {
+  const id: string = req.userId;
 
   try {
-    let deletedUser = await User.destroy({
+    const deletedUser: number = await User.destroy({
       where: { id }
     });
 
-    if (!deletedUser)
-      return res.status(500).json({ error: 'Falha ao deletar usuario!' });
+    if (deletedUser === 0) {
+      return res.status(500).json({ error: "Falha ao deletar usuario!" });
+    }
 
-    let deletedProducts = await Product.destroy({
+    // eslint-disable-next-line no-unused-vars
+    const deletedProducts = await Product.destroy({
       where: { userId: id }
     });
 
-    res.status(200).json({ message: 'Usuario deletado com sucesso!' });
-  } catch (error) {
-    throw error;
-  }
+    return res.status(204).send();
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
+  };
 };
 
 let handleAllUsers = async (req, res) => {
