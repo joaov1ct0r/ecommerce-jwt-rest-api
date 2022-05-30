@@ -142,7 +142,7 @@ const handleDeleteUser = async (req: IReq, res: Response): Promise<Response<any,
   };
 };
 
-const handleAllUsers = async (req: Request, res: Response) => {
+const handleAllUsers = async (req: Request, res: Response): Promise<Response<any, Record<string, any>> | undefined> => {
   try {
     const users: IUser[] = await User.findAll({ include: Product });
 
@@ -152,27 +152,26 @@ const handleAllUsers = async (req: Request, res: Response) => {
   };
 };
 
-let handleOneUser = async (req, res) => {
-  let { id } = req.params;
+const handleOneUser = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
+  const { error } = validateHandleOneUser(req.body);
 
-  if (!id) return res.status(400).json({ error: 'ID não encontrado!' });
+  if (error) return res.status(400).json({ error });
 
-  let registeredUser = await User.findOne({
-    where: { id }
-  });
-
-  if (!registeredUser)
-    return res.status(400).json({ error: 'Usuario não encontrado!' });
+  const id: string = req.body.id;
 
   try {
-    let user = await User.findByPk(id, { include: Product });
+    const user: IUser | null = await User.findOne({
+      include: Product,
+      where: { id }
+    });
 
-    if (!user)
-      return res.status(500).json({ error: 'Falha ao obter dados!' });
+    if (user === null) {
+      return res.status(500).json({ error: "Falha ao obter dados!" });
+    }
 
-    res.status(200).json({ user });
-  } catch (error) {
-    throw error;
+    return res.status(200).json({ user });
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
   }
 };
 
