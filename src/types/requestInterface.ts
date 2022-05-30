@@ -1,7 +1,7 @@
 import { Request } from "express";
 
 interface IReq extends Request {
-  userId?: string;
+  userId: string;
 }
 
 export default IReq;
