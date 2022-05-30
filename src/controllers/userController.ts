@@ -14,7 +14,7 @@ import { Request, Response } from "express";
 
 import { validateHandleNewUser, validateHandleUserLogin, validateHandleEditUser, validateHandleOneUser } from "../validators/validateUserData";
 
-const handleNewUser = async (req: Request, res: Response): Promise<Response<any, Record<string, any>> | undefined> => {
+const handleNewUser = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
   const { error } = validateHandleNewUser(req.body);
 
   if (error) return res.status(400).json({ error });
@@ -37,13 +37,13 @@ const handleNewUser = async (req: Request, res: Response): Promise<Response<any,
       password: bcrypt.hashSync(password)
     });
 
-    res.status(201).json({ newUser });
+    return res.status(201).json({ newUser });
   } catch (err: unknown) {
     return res.status(500).json({ err });
-  }
+  };
 };
 
-const handleUserLogin = async (req: Request, res: Response): Promise<Response<any, Record<string, any>> | undefined> => {
+const handleUserLogin = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
   const { error } = validateHandleUserLogin(req.body);
 
   if (error) return res.status(400).json({ error });
@@ -83,13 +83,13 @@ const handleUserLogin = async (req: Request, res: Response): Promise<Response<an
 
     res.cookie("authentication", `Bearer ${token}`, { httpOnly: true });
 
-    res.status(200).json({ message: "Login realizado com sucesso!" });
+    return res.status(200).json({ message: "Login realizado com sucesso!" });
   } catch (err: unknown) {
     return res.status(500).json({ err });
   };
 };
 
-const handleEditUser = async (req: IReq, res: Response): Promise<Response<any, Record<string, any>> | undefined> => {
+const handleEditUser = async (req: IReq, res: Response): Promise<Response<any, Record<string, any>>> => {
   const { error } = validateHandleEditUser(req.body);
 
   if (error) return res.status(400).json({ error });
@@ -113,7 +113,7 @@ const handleEditUser = async (req: IReq, res: Response): Promise<Response<any, R
         .status(500)
         .json({ error: "Falha ao atualizar usuario!" });
     }
-    res.status(204).send();
+    return res.status(204).send();
   } catch (err: unknown) {
     return res.status(500).json({ err });
   };
@@ -142,11 +142,11 @@ const handleDeleteUser = async (req: IReq, res: Response): Promise<Response<any,
   };
 };
 
-const handleAllUsers = async (req: Request, res: Response): Promise<Response<any, Record<string, any>> | undefined> => {
+const handleAllUsers = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
   try {
     const users: IUser[] = await User.findAll({ include: Product });
 
-    res.status(200).json({ users });
+    return res.status(200).json({ users });
   } catch (err: unknown) {
     return res.status(500).json({ err });
   };
@@ -172,7 +172,7 @@ const handleOneUser = async (req: Request, res: Response): Promise<Response<any,
     return res.status(200).json({ user });
   } catch (err: unknown) {
     return res.status(500).json({ err });
-  }
+  };
 };
 
 export {
