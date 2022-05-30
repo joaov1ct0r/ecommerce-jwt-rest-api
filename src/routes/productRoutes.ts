@@ -1,33 +1,33 @@
-import express from 'express';
+import express from "express";
 
 import {
-    handleNewProduct,
-    handleEditProduct,
-    handleDeleteProduct,
-    handleGetOneProduct,
-    handleGetAllProducts
-} from '../controllers/productController.js';
+  handleNewProduct,
+  handleEditProduct,
+  handleDeleteProduct,
+  handleGetOneProduct,
+  handleGetAllProducts
+} from "../controllers/productController";
 
-import authController from '../middlewares/auth.js';
+import auth from "../middlewares/auth";
 
-let productRouter = express.Router();
+const productRouter: express.Router = express.Router();
 
-productRouter.post('/register/:id', authController, handleNewProduct);
+productRouter.post("/register/:id", auth, handleNewProduct);
 
-productRouter.put('/edit/:id/:productId', authController, handleEditProduct);
+productRouter.put("/edit/:id/:productId", auth, handleEditProduct);
 
 productRouter.delete(
-    '/delete/:id/:productId',
-    authController,
-    handleDeleteProduct
+  "/delete/:id/:productId",
+  auth,
+  handleDeleteProduct
 );
 
-productRouter.get('/all', authController, handleGetAllProducts);
+productRouter.get("/all", auth, handleGetAllProducts);
 
 productRouter.get(
-    '/product/:id/:productId',
-    authController,
-    handleGetOneProduct
+  "/product/:id/:productId",
+  auth,
+  handleGetOneProduct
 );
 
 export default productRouter;
