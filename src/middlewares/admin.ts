@@ -23,6 +23,8 @@ export default async function (req: IReq, res: Response, next: NextFunction) {
     if (isUserAdmin === false) {
       return res.status(401).json({ error: "Não autorizado!" });
     };
+
+    next();
   } catch (error) {
     return res.status(500).json({ error });
   }
