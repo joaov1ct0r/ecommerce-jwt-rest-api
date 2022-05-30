@@ -8,18 +8,22 @@ import bcrypt from "bcryptjs";
 
 import IReq from "../types/requestInterface";
 
+import IUser from "../types/userInterface";
+
 import { Request, Response } from "express";
 
 import { validateHandleNewUser, validateHandleUserLogin, validateHandleEditUser, validateHandleOneUser } from "../validators/validateUserData";
 
 const handleNewUser = async (req: Request, res: Response) => {
-  let { error } = validateUserData(req.body);
+  const { error } = validateHandleNewUser(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  let { email, password } = req.body;
+  const email: string = req.body.email;
 
-  let registeredUser = await User.findOne({
+  const password: string = req.body.password;
+
+  const registeredUser = await User.findOne({
     where: { email }
   });
 
