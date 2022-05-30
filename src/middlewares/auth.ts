@@ -12,15 +12,15 @@ export default function (req: IReq, res: Response, next: NextFunction): Response
   if (token.length === 0) return res.status(400).json({ error: "Token não encontrado!" });
 
   try {
-    const userVerified: IJwt = jwt.verify(token, process.env.JWT_TOKEN_SECRET as string) as IJwt;
+    const verifiedToken: IJwt = jwt.verify(token, process.env.JWT_TOKEN_SECRET as string) as IJwt;
 
-    if (!userVerified) {
+    if (!verifiedToken) {
       return res
         .status(400)
         .json({ error: "Falha na autenticação de token!" });
     };
 
-    req.userId = userVerified.id;
+    req.userId = verifiedToken.id;
 
     next();
   } catch (error) {

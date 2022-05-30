@@ -17,12 +17,12 @@ userRouter.post("/register", handleNewUser);
 
 userRouter.post("/login", handleUserLogin);
 
-userRouter.put("/edit/:id", auth, handleEditUser);
+userRouter.put("/edit", auth, handleEditUser);
 
-userRouter.delete("/delete/:id", auth, handleDeleteUser);
+userRouter.delete("/delete", auth, handleDeleteUser);
 
 userRouter.get("/all", auth, handleAllUsers);
 
-userRouter.get("/user/:id", auth, handleOneUser);
+userRouter.get("/user", auth, handleOneUser);
 
 export default userRouter;
