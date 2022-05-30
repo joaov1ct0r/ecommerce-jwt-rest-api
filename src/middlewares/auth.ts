@@ -2,7 +2,9 @@ import jwt from "jsonwebtoken";
 
 import IJwt from "../types/jsonInterface";
 
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
+
+import IReq from "../types/requestInterface";
 
 export default function (req: Request, res: Response, next: NextFunction) {
   const token: string = req.cookies.auth.split(" ")[1];
@@ -17,6 +19,8 @@ export default function (req: Request, res: Response, next: NextFunction) {
         .status(400)
         .json({ error: "Falha na autenticação de token!" });
     };
+
+    req.userId = userVerified.id;
 
     next();
   } catch (error) {
