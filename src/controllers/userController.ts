@@ -10,7 +10,9 @@ import IReq from "../types/requestInterface";
 
 import { Request, Response } from "express";
 
-let handleNewUser = async (req, res) => {
+import { validateHandleNewUser, validateHandleUserLogin, validateHandleEditUser, validateHandleOneUser } from "../validators/validateUserData";
+
+const handleNewUser = async (req: Request, res: Response) => {
   let { error } = validateUserData(req.body);
 
   if (error) return res.status(400).json({ error });
