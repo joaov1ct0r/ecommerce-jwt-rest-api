@@ -6,6 +6,10 @@ import jwt from "jsonwebtoken";
 
 import bcrypt from "bcryptjs";
 
+import IReq from "../types/requestInterface";
+
+import { Request, Response, NextFunction } from "express";
+
 let handleNewUser = async (req, res) => {
   let { error } = validateUserData(req.body);
 
