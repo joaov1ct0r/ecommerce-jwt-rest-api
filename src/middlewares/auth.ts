@@ -10,12 +10,13 @@ export default function (req: Request, res: Response, next: NextFunction) {
   if (token.length === 0) return res.status(400).json({ error: "Token não encontrado!" });
 
   try {
-    let userVerified = jwt.verify(auth, process.env.JWT_TOKEN_SECRET);
+    const userVerified: IJwt = jwt.verify(token, process.env.JWT_TOKEN_SECRET as string) as IJwt;
 
-    if (!userVerified)
+    if (!userVerified) {
       return res
         .status(400)
-        .json({ error: 'Falha na autenticação de token!' });
+        .json({ error: "Falha na autenticação de token!" });
+    };
 
     next();
   } catch (error) {
