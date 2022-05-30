@@ -21,6 +21,10 @@ const User: ModelStatic<IUser> = DB.define(
     password: {
       type: DataTypes.STRING(250),
       allowNull: false
+    },
+    admin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   },
   {

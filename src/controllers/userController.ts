@@ -23,25 +23,23 @@ const handleNewUser = async (req: Request, res: Response) => {
 
   const password: string = req.body.password;
 
-  const registeredUser = await User.findOne({
-    where: { email }
-  });
-
-  if (registeredUser)
-    return res.status(400).json({ error: 'Usuario já registrado!' });
-
   try {
-    let newUser = User.create({
+    const registeredUser: IUser | null = await User.findOne({
+      where: { email }
+    });
+
+    if (registeredUser !== null) {
+      return res.status(400).json({ error: "Usuario já registrado!" });
+    };
+
+    const newUser: IUser = await User.create({
       email,
       password: bcrypt.hashSync(password)
     });
 
-    if (!newUser)
-      return res.status(500).json({ error: 'Falha ao salvar usuario!' });
-
-    res.status(200).json({ message: 'Usuario cadastrado com sucesso!' });
-  } catch (error) {
-    throw error;
+    res.status(201).json({ newUser });
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
   }
 };
 
