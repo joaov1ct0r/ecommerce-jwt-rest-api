@@ -142,17 +142,14 @@ const handleDeleteUser = async (req: IReq, res: Response): Promise<Response<any,
   };
 };
 
-let handleAllUsers = async (req, res) => {
+const handleAllUsers = async (req: Request, res: Response) => {
   try {
-    let users = await User.findAll({ include: Product });
-
-    if (!users)
-      return res.status(500).json({ error: 'Falha ao obter dados!' });
+    const users: IUser[] = await User.findAll({ include: Product });
 
     res.status(200).json({ users });
-  } catch (error) {
-    throw error;
-  }
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
+  };
 };
 
 let handleOneUser = async (req, res) => {
