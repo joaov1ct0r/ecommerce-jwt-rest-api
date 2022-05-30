@@ -1,16 +1,16 @@
-import 'dotenv/config';
+import "dotenv/config";
 
-import cors from 'cors';
+import cors from "cors";
 
-import cookieParser from 'cookie-parser';
+import cookieParser from "cookie-parser";
 
-import express from 'express';
+import express from "express";
 
-import productRouter from './routes/productRoutes.js';
+import productRouter from "./routes/productRoutes";
 
-import userRouter from './routes/userRoutes.js';
+import userRouter from "./routes/userRoutes";
 
-let app = express();
+const app: express.Express = express();
 
 app.use(cors());
 
@@ -20,10 +20,10 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/users', userRouter);
+app.use("/api/users", userRouter);
 
-app.use('/api/products', productRouter);
+app.use("/api/products", productRouter);
 
 app.listen(process.env.SERVER_PORT, () => {
-    console.log('Server running!');
+  console.log("Server running!");
 });
