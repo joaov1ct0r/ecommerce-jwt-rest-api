@@ -74,7 +74,8 @@ const handleUserLogin = async (req: Request, res: Response): Promise<Response<an
       {
         id: isUserRegistered.id
       },
-      process.env.JWT_TOKEN_SECRET as string
+      process.env.JWT_TOKEN_SECRET as string,
+      { expiresIn: 300 }
     );
 
     if (token.length === 0) {
