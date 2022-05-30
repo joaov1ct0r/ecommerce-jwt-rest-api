@@ -1,11 +1,13 @@
 import jwt from "jsonwebtoken";
 
+import IJwt from "../types/jsonInterface";
+
 import { Request, Response, NextFunction } from "express";
 
-export default function (req, res, next) {
-  let { auth } = req.cookies;
+export default function (req: Request, res: Response, next: NextFunction) {
+  const token: string = req.cookies.auth.split(" ")[1];
 
-  if (!auth) return res.status(400).json({ error: 'Token não encontrado!' });
+  if (token.length === 0) return res.status(400).json({ error: "Token não encontrado!" });
 
   try {
     let userVerified = jwt.verify(auth, process.env.JWT_TOKEN_SECRET);
@@ -17,6 +19,6 @@ export default function (req, res, next) {
 
     next();
   } catch (error) {
-    throw error;
-  }
-}
+    return res.status(500).json({ error });
+  };
+};
