@@ -7,7 +7,7 @@ import { Response, NextFunction } from "express";
 import IUser from "../types/userInterface";
 
 export default async function (req: IReq, res: Response, next: NextFunction) {
-  const id: string | undefined = req.userId;
+  const id: string = req.userId;
 
   try {
     const isUserRegistered: IUser | null = await User.findOne({
