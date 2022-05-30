@@ -14,7 +14,7 @@ import { Request, Response } from "express";
 
 import { validateHandleNewUser, validateHandleUserLogin, validateHandleEditUser, validateHandleOneUser } from "../validators/validateUserData";
 
-const handleNewUser = async (req: Request, res: Response) => {
+const handleNewUser = async (req: Request, res: Response): Promise<Response<any, Record<string, any>> | undefined> => {
   const { error } = validateHandleNewUser(req.body);
 
   if (error) return res.status(400).json({ error });
@@ -43,45 +43,50 @@ const handleNewUser = async (req: Request, res: Response) => {
   }
 };
 
-let handleUserLogin = async (req, res) => {
-  let { error } = validateUserData(req.body);
+const handleUserLogin = async (req: Request, res: Response) => {
+  const { error } = validateHandleUserLogin(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  let { email, password } = req.body;
+  const email: string = req.body.email;
 
-  let registeredUser = await User.findOne({
-    where: { email }
-  });
-
-  if (!registeredUser)
-    return res.status(400).json({ error: 'Usuario não encontrado!' });
-
-  let comparedPassword = bcrypt.compareSync(
-    password,
-    registeredUser.password
-  );
-
-  if (!comparedPassword)
-    return res.status(400).json({ error: 'Falha na autenticação!' });
+  const password: string = req.body.password;
 
   try {
-    let token = jwt.sign(
-      {
-        id: registeredUser.id
-      },
-      process.env.JWT_TOKEN_SECRET
+    const isUserRegistered: IUser | null = await User.findOne({
+      where: { email }
+    });
+
+    if (isUserRegistered === null) {
+      return res.status(400).json({ error: "Falha na autenticação!" });
+    }
+
+    const matchingPasswords: boolean = bcrypt.compareSync(
+      password,
+      isUserRegistered.password
     );
 
-    if (!token)
-      return res.status(500).json({ error: 'Falha na autenticação!' });
+    if (matchingPasswords === false) {
+      return res.status(400).json({ error: "Falha na autenticação!" });
+    }
 
-    res.cookie('auth', token, { httpOnly: true });
+    const token: string = jwt.sign(
+      {
+        id: isUserRegistered.id
+      },
+      process.env.JWT_TOKEN_SECRET as string
+    );
 
-    res.status(200).json({ message: 'Login realizado com sucesso!' });
-  } catch (error) {
-    throw error;
-  }
+    if (token.length === 0) {
+      return res.status(500).json({ error: "Falha na autenticação!" });
+    }
+
+    res.cookie("authentication", `Bearer ${token}`, { httpOnly: true });
+
+    res.status(200).json({ message: "Login realizado com sucesso!" });
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
+  };
 };
 
 let handleEditUser = async (req, res) => {
