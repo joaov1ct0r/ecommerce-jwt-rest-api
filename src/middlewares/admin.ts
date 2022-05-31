@@ -25,7 +25,7 @@ export default async function (req: IReq, res: Response, next: NextFunction): Pr
     };
 
     next();
-  } catch (error) {
-    return res.status(500).json({ error });
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
   }
 }

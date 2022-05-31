@@ -23,7 +23,7 @@ export default function (req: IReq, res: Response, next: NextFunction): Response
     req.userId = verifiedToken.id;
 
     next();
-  } catch (error) {
-    return res.status(500).json({ error });
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
   };
 };
