@@ -7,3 +7,5 @@ import bcrypt from "bcryptjs";
 import { Request, Response } from "express";
 
 import { validateHandleAdminDeleteProduct, validateHandleAdminDeleteUser, validateHandleAdminEditUser } from "../validators/validateAdminData";
+
+import IUser from "../types/userInterface";
