@@ -5,3 +5,7 @@ import { handleAdminDeleteProduct, handleAdminDeleteUser, handleAdminEditUser } 
 import auth from "../middlewares/auth";
 
 import admin from "../middlewares/admin";
+
+const adminRouter: express.Router = express.Router();
+
+adminRouter.put("/user/edit", auth, admin, handleAdminEditUser);
