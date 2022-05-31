@@ -1,6 +1,6 @@
 import User from "../database/models/userModel";
 
-import Product from '../database/models/productModel.js';
+import Product from "../database/models/productModel";
 
 import validateProductData from '../validators/validateProductData.js';
 
