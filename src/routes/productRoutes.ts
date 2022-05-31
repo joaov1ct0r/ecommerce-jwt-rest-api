@@ -12,12 +12,12 @@ import auth from "../middlewares/auth";
 
 const productRouter: express.Router = express.Router();
 
-productRouter.post("/register/:id", auth, handleNewProduct);
+productRouter.post("/register", auth, handleNewProduct);
 
-productRouter.put("/edit/:id/:productId", auth, handleEditProduct);
+productRouter.put("/edit", auth, handleEditProduct);
 
 productRouter.delete(
-  "/delete/:id/:productId",
+  "/delete",
   auth,
   handleDeleteProduct
 );
@@ -25,7 +25,7 @@ productRouter.delete(
 productRouter.get("/all", auth, handleGetAllProducts);
 
 productRouter.get(
-  "/product/:id/:productId",
+  "/product",
   auth,
   handleGetOneProduct
 );
