@@ -8,40 +8,36 @@ import IReq from "../types/requestInterface";
 
 import { Request, Response } from "express";
 
-let handleNewProduct = async (req, res) => {
-  let { id } = req.params;
+import { Model } from "sequelize";
 
-  let { error } = validateProductData(req.body);
+const handleNewProduct = async (req: IReq, res: Response) => {
+  const id: string | undefined = req.userId;
+
+  const { error } = validateHandleNewProduct(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  let registeredUser = await User.findOne({
-    where: { id }
-  });
+  const title: string = req.body.title;
 
-  if (!registeredUser)
-    return res.status(400).json({ error: 'Usuario não encontrado!' });
+  const description: string = req.body.description;
 
-  let { title, description, amount, price } = req.body;
+  const amount: string = req.body.amount;
+
+  const price: string = req.body.price;
 
   try {
-    let newProduct = await Product.create({
+    const newProduct: Model<any, any> = await Product.create({
       title,
       description,
       amount,
       price,
-      userId: registeredUser.id
+      userId: id
     });
 
-    if (!newProduct)
-      return res
-        .status(500)
-        .json({ error: 'Falha ao registrar novo produto!' });
-
-    res.status(200).json({ newProduct });
-  } catch (error) {
-    throw error;
-  }
+    return res.status(201).json({ newProduct });
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
+  };
 };
 
 let handleEditProduct = async (req, res) => {
