@@ -40,7 +40,7 @@ const handleNewProduct = async (req: IReq, res: Response): Promise<Response<any,
   };
 };
 
-const handleEditProduct = async (req: IReq, res: Response) => {
+const handleEditProduct = async (req: IReq, res: Response): Promise<Response<any, Record<string, any>>> => {
   const id: string | undefined = req.userId;
 
   const productId: string = req.body.productId;
@@ -77,40 +77,37 @@ const handleEditProduct = async (req: IReq, res: Response) => {
       return res.status(500).json({ error: "Falha ao editar produto!" });
     }
 
-    return res.status(204).json({ message: "Produto editado com sucesso!" });
+    return res.status(204).send();
   } catch (err: unknown) {
     return res.status(500).json({ err });
   };
 };
 
-let handleDeleteProduct = async (req, res) => {
-  let { id, productId } = req.params;
+const handleDeleteProduct = async (req: IReq, res: Response) => {
+  const id: string | undefined = req.userId;
 
-  let registeredUser = await User.findOne({
-    where: { id }
-  });
-
-  if (!registeredUser)
-    return res.status(400).json({ error: 'Usuario não encontrado!' });
-
-  let registeredProduct = await Product.findOne({
-    where: { id: productId }
-  });
-
-  if (!registeredProduct)
-    return res.status(400).json({ error: 'Produto não encontrado!' });
+  const productId: string = req.body.productId;
 
   try {
-    let deletedProduct = await Product.destroy({
+    const isProductRegistered: Model<any, any> | null = await Product.findOne({
       where: { id: productId }
     });
 
-    if (!deletedProduct)
-      return res.status(500).json({ error: 'Falha ao deletar produto!' });
+    if (isProductRegistered === null) {
+      return res.status(404).json({ error: "Produto não encontrado!" });
+    };
 
-    res.status(200).json({ message: 'Produto deletado com sucesso!' });
-  } catch (error) {
-    throw error;
+    const deletedProduct: number = await Product.destroy({
+      where: { id: productId }
+    });
+
+    if (deletedProduct === 0) {
+      return res.status(500).json({ error: "Falha ao deletar produto!" });
+    }
+
+    return res.status(204).send();
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
   }
 };
 
