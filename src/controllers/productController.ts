@@ -10,7 +10,7 @@ import { Request, Response } from "express";
 
 import { Model } from "sequelize";
 
-const handleNewProduct = async (req: IReq, res: Response) => {
+const handleNewProduct = async (req: IReq, res: Response): Promise<Response<any, Record<string, any>>> => {
   const id: string | undefined = req.userId;
 
   const { error } = validateHandleNewProduct(req.body);
@@ -40,37 +40,47 @@ const handleNewProduct = async (req: IReq, res: Response) => {
   };
 };
 
-let handleEditProduct = async (req, res) => {
-  let { id, productId } = req.params;
+const handleEditProduct = async (req: IReq, res: Response) => {
+  const id: string | undefined = req.userId;
 
-  let { error } = validateProductData(req.body);
+  const productId: string = req.body.productId;
+
+  const { error } = validateHandleEditProduct(req.body);
 
   if (error) return res.status(400).json({ error });
 
-  let registeredUser = await User.findOne({
-    where: { id }
-  });
+  const title: string = req.body.title;
 
-  if (!registeredUser)
-    return res.status(400).json({ error: 'Usuario não encontrado!' });
+  const description: string = req.body.description;
 
-  let { title, description, amount, price } = req.body;
+  const amount: string = req.body.amount;
+
+  const price: string = req.body.price;
 
   try {
-    let editedProduct = await Product.update(
-      { title, description, amount, price, userId: registeredUser.id },
+    const isProductRegistered: Model<any, any> | null = await Product.findOne({
+      where: { id: productId }
+    });
+
+    if (isProductRegistered === null) {
+      return res.status(404).json({ error: "Produto não encontrado!" });
+    };
+
+    const editedProduct = await Product.update(
+      { title, description, amount, price, userId: id },
       {
         where: { id: productId }
       }
     );
 
-    if (!editedProduct)
-      return res.status(500).json({ error: 'Falha ao editar produto!' });
+    if (editedProduct[0] === 0) {
+      return res.status(500).json({ error: "Falha ao editar produto!" });
+    }
 
-    res.status(200).json({ message: 'Produto editado com sucesso!' });
-  } catch (error) {
-    throw error;
-  }
+    return res.status(204).json({ message: "Produto editado com sucesso!" });
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
+  };
 };
 
 let handleDeleteProduct = async (req, res) => {
