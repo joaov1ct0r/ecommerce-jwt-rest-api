@@ -83,9 +83,7 @@ const handleEditProduct = async (req: IReq, res: Response): Promise<Response<any
   };
 };
 
-const handleDeleteProduct = async (req: IReq, res: Response) => {
-  const id: string | undefined = req.userId;
-
+const handleDeleteProduct = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
   const productId: string = req.body.productId;
 
   try {
@@ -108,51 +106,35 @@ const handleDeleteProduct = async (req: IReq, res: Response) => {
     return res.status(204).send();
   } catch (err: unknown) {
     return res.status(500).json({ err });
-  }
+  };
 };
 
-let handleGetAllProducts = async (req, res) => {
+const handleGetAllProducts = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
   try {
-    let products = await Product.findAll({ include: User });
+    const products: Model<any, any>[] = await Product.findAll({ include: User });
 
-    if (!products)
-      return res.status(500).json({ error: 'Falha ao obter dados!' });
-
-    res.status(200).json({ products });
-  } catch (error) {
-    throw error;
-  }
+    return res.status(200).json({ products });
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
+  };
 };
 
-let handleGetOneProduct = async (req, res) => {
-  let { id, productId } = req.params;
-
-  let registeredUser = await User.findOne({
-    where: { id }
-  });
-
-  if (!registeredUser)
-    return res.status(400).json({ error: 'Usuario não encontrado!' });
-
-  let registeredProduct = await Product.findOne({
-    where: { id: productId }
-  });
-
-  if (!registeredProduct)
-    return res.status(400).json({ error: 'Produto não encontrado!' });
+const handleGetOneProduct = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
+  const productId: string = req.body.productId;
 
   try {
-    let product = await Product.findByPk(productId, { include: User });
+    const product: Model<any, any> | null = await Product.findOne({
+      where: { id: productId }
+    });
 
-    if (!product)
-      return res
-        .status(500)
-        .json({ error: 'Falha ao obter dados do produto!' });
+    if (product === null) {
+      return res.status(404).json({ error: "Produto não encontrado!" });
+    };
 
-    res.status(200).json({ product });
-  } catch (error) {
-    throw error;
-  }
+    return res.status(200).json({ product });
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
+  };
 };
 
 export {
