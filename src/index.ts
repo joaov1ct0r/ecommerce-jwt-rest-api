@@ -26,6 +26,8 @@ app.use("/api/users", userRouter);
 
 app.use("/api/products", productRouter);
 
+app.use("/api/admin", adminRouter);
+
 app.listen(process.env.SERVER_PORT, (): void => {
   console.log("Server running!");
 });
