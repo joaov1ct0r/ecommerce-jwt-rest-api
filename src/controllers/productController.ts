@@ -66,7 +66,7 @@ const handleEditProduct = async (req: IReq, res: Response): Promise<Response<any
       return res.status(404).json({ error: "Produto não encontrado!" });
     };
 
-    const editedProduct = await Product.update(
+    const editedProduct: [affectedCount: number] = await Product.update(
       { title, description, amount, price, userId: id },
       {
         where: { id: productId }
