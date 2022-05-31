@@ -10,6 +10,8 @@ import productRouter from "./routes/productRoutes";
 
 import userRouter from "./routes/userRoutes";
 
+import adminRouter from "./routes/adminRoutes";
+
 const app: express.Express = express();
 
 app.use(cors());
