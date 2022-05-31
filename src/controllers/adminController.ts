@@ -12,7 +12,7 @@ import IUser from "../types/userInterface";
 
 import { Model } from "sequelize";
 
-const handleAdminEditUser = async (req: Request, res: Response) => {
+const handleAdminEditUser = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
   const { error } = validateHandleAdminEditUser(req.body);
 
   if (error) return res.status(400).json({ error });
@@ -48,7 +48,7 @@ const handleAdminEditUser = async (req: Request, res: Response) => {
   };
 };
 
-const handleAdminDeleteUser = async (req: Request, res: Response) => {
+const handleAdminDeleteUser = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
   const { error } = validateHandleAdminDeleteUser(req.body);
 
   if (error) return res.status(400).json({ error });
@@ -78,6 +78,36 @@ const handleAdminDeleteUser = async (req: Request, res: Response) => {
         userId: isUserRegistered.id
       }
     });
+
+    return res.status(204).send();
+  } catch (err: unknown) {
+    return res.status(500).json({ err });
+  };
+};
+
+const handleAdminDeleteProduct = async (req: Request, res: Response) => {
+  const { error } = validateHandleAdminDeleteProduct(req.body);
+
+  if (error) return res.status(400).json({ error });
+
+  const productId: string = req.body.productId;
+
+  try {
+    const isProductRegistered: Model<any, any> | null = await Product.findOne({
+      where: { id: productId }
+    });
+
+    if (isProductRegistered === null) {
+      return res.status(404).json({ error: "Produto não encontrado!" });
+    }
+
+    const deletedProduct: number = await Product.destroy({
+      where: { id: productId }
+    });
+
+    if (deletedProduct === 0) {
+      return res.status(500).json({ error: "Falha ao deletar Produto!" });
+    }
 
     return res.status(204).send();
   } catch (err: unknown) {
