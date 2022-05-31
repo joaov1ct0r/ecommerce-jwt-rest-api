@@ -4,6 +4,8 @@ import Product from "../database/models/productModel";
 
 import { validateHandleDeleteProduct, validateHandleEditProduct, validateHandleGetOneProduct, validateHandleNewProduct } from "../validators/validateProductData";
 
+import IReq from "../types/requestInterface";
+
 let handleNewProduct = async (req, res) => {
   let { id } = req.params;
 
