@@ -85,4 +85,4 @@ const handleAdminDeleteUser = async (req: Request, res: Response) => {
   };
 };
 
-export { handleAdminEditUser };
+export { handleAdminEditUser, handleAdminDeleteUser };
