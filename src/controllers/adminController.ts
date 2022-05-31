@@ -115,4 +115,4 @@ const handleAdminDeleteProduct = async (req: Request, res: Response) => {
   };
 };
 
-export { handleAdminEditUser, handleAdminDeleteUser };
+export { handleAdminEditUser, handleAdminDeleteUser, handleAdminDeleteProduct };
