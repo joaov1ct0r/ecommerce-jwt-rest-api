@@ -84,6 +84,10 @@ const handleEditProduct = async (req: IReq, res: Response): Promise<Response<any
 };
 
 const handleDeleteProduct = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
+  const { error } = validateHandleDeleteProduct(req.body);
+
+  if (error) return res.status(400).json({ error });
+
   const productId: string = req.body.productId;
 
   try {
