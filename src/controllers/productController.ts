@@ -124,6 +124,10 @@ const handleGetAllProducts = async (req: Request, res: Response): Promise<Respon
 };
 
 const handleGetOneProduct = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
+  const { error } = validateHandleGetOneProduct(req.body);
+
+  if (error) return res.status(400).json({ error });
+
   const productId: string = req.body.productId;
 
   try {
