@@ -6,6 +6,8 @@ import { validateHandleDeleteProduct, validateHandleEditProduct, validateHandleG
 
 import IReq from "../types/requestInterface";
 
+import { Request, Response } from "express";
+
 let handleNewProduct = async (req, res) => {
   let { id } = req.params;
 
