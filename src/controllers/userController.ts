@@ -95,7 +95,7 @@ const handleEditUser = async (req: IReq, res: Response): Promise<Response<any, R
 
   if (error) return res.status(400).json({ error });
 
-  const id: string = req.userId;
+  const id: string | undefined = req.userId;
 
   const email: string = req.body.email;
 
@@ -121,7 +121,7 @@ const handleEditUser = async (req: IReq, res: Response): Promise<Response<any, R
 };
 
 const handleDeleteUser = async (req: IReq, res: Response): Promise<Response<any, Record<string, any>>> => {
-  const id: string = req.userId;
+  const id: string | undefined = req.userId;
 
   try {
     const deletedUser: number = await User.destroy({
