@@ -82,7 +82,7 @@ const handleUserLogin = async (req: Request, res: Response): Promise<Response<an
       return res.status(500).json({ error: "Falha na autenticação!" });
     }
 
-    res.cookie("authentication", `Bearer ${token}`, { httpOnly: true });
+    res.cookie("authorization", `Bearer ${token}`, { httpOnly: true });
 
     return res.status(200).json({ message: "Login realizado com sucesso!" });
   } catch (err: unknown) {
