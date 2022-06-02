@@ -158,12 +158,12 @@ const handleOneUser = async (req: Request, res: Response): Promise<Response<any,
 
   if (error) return res.status(400).json({ error });
 
-  const id: string = req.body.id;
+  const email: string = req.body.email;
 
   try {
     const user: IUser | null = await User.findOne({
       include: Product,
-      where: { id }
+      where: { email }
     });
 
     if (user === null) {
