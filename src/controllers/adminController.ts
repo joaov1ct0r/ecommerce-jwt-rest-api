@@ -34,7 +34,7 @@ const handleAdminEditUser = async (req: Request, res: Response): Promise<Respons
 
     const editedUser: [affectedCount: number] = await User.update(
       {
-        userNewEmail, password: bcrypt.hashSync(userNewPassword)
+        email: userNewEmail, password: bcrypt.hashSync(userNewPassword)
       },
       { where: { email: userEmail } });
 
