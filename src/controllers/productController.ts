@@ -11,11 +11,11 @@ import { Request, Response } from "express";
 import { Model } from "sequelize";
 
 const handleNewProduct = async (req: IReq, res: Response): Promise<Response<any, Record<string, any>>> => {
-  const id: string | undefined = req.userId;
-
   const { error } = validateHandleNewProduct(req.body);
 
   if (error) return res.status(400).json({ error });
+
+  const id: string | undefined = req.userId;
 
   const title: string = req.body.title;
 
@@ -41,13 +41,13 @@ const handleNewProduct = async (req: IReq, res: Response): Promise<Response<any,
 };
 
 const handleEditProduct = async (req: IReq, res: Response): Promise<Response<any, Record<string, any>>> => {
-  const id: string | undefined = req.userId;
-
-  const productId: string = req.body.productId;
-
   const { error } = validateHandleEditProduct(req.body);
 
   if (error) return res.status(400).json({ error });
+
+  const id: string | undefined = req.userId;
+
+  const productId: string = req.body.productId;
 
   const title: string = req.body.title;
 
